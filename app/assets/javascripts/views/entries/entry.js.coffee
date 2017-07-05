@@ -3,14 +3,14 @@ class TestBackbone.Views.Entry extends Backbone.View
   tagName: "li"
 
   initialize: ->
-    @model.on("change", @render, this)
-    @model.on("highlightLastWinner", @highlight, this)
+    @model.on("change", @render)
+    @model.on("highlightLastWinner", @highlight)
 
-  highlight: ->
+  highlight: =>
     $(".winner").removeClass("highlight")
     @$(".winner").addClass("highlight")
 
-  render: ->
+  render: =>
     # since model was passed in on class
     # instantiation, we can now use it to pass
     # in to template

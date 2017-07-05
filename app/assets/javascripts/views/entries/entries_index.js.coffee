@@ -12,14 +12,14 @@ class TestBackbone.Views.EntriesIndex extends Backbone.View
     # so that whenever it gets finished we
     # can update our view - "fetch" method
     # triggers "reset" event after finishing
-    @collection.on("reset", @render, this)
-    @collection.on("add", @appendEntry, this)
+    @collection.on("reset", @render)
+    @collection.on("add", @appendEntry)
 
-  render: ->
+  render: =>
     @$el.html(@template()).trigger("template-rendered")
     # since collection was passed in on class
     # instantiation, we can now use it
-    @collection.each(@appendEntry, this)
+    @collection.each(@appendEntry)
     this
 
   setup: ->
@@ -27,18 +27,17 @@ class TestBackbone.Views.EntriesIndex extends Backbone.View
     @$list = @$("#entries")
     @$name = @$form.find("#new_entry_name")
 
-  appendEntry: (entry) ->
+  appendEntry: (entry) =>
     view = new TestBackbone.Views.Entry(model: entry)
     @$list.append(view.render().el)
 
   createEntry: (event) ->
     event.preventDefault()
 
-    that = this
     attributes = name: @$name.val()
     @collection.create attributes,
       wait: true # prevents the "add" event from being fired till server returns with 200 response type
-      success: -> that.$form[0].reset()
+      success: => @$form[0].reset()
       error: @handleError
 
   handleError: (entry, response) ->

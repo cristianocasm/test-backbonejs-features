@@ -6,7 +6,7 @@ class TestBackbone.Routers.Entries extends Backbone.Router
 
   initialize: ->
     @collection = new TestBackbone.Collections.Entries()
-    @collection.fetch(reset: true) # async call!
+    @collection.reset($("#container").data("entries"))
 
   index: ->
     # views accepts collection as parameter
