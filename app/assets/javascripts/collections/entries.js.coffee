@@ -4,3 +4,7 @@ class TestBackbone.Collections.Entries extends Backbone.Collection
   # and avoids conflicts with Backbone routing
   url: "/api/entries"
   model: TestBackbone.Models.Entry
+
+  chooseWinner: ->
+    nonWinners = @where winner: false
+    _.sample(nonWinners).win() if nonWinners.length

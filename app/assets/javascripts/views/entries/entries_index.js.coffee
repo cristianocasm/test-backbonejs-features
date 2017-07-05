@@ -2,8 +2,9 @@ class TestBackbone.Views.EntriesIndex extends Backbone.View
   template: JST['entries/index']
 
   events:
-    "submit #new_entry": "createEntry"
     "template-rendered": "setup"
+    "submit #new_entry": "createEntry"
+    "click #draw": "drawWinner"
 
   initialize: ->
     # since fetch method runs async, it's
@@ -22,8 +23,8 @@ class TestBackbone.Views.EntriesIndex extends Backbone.View
     this
 
   setup: ->
-    @$form = @$el.find("#new_entry")
-    @$list = @$el.find("#entries")
+    @$form = @$("#new_entry")
+    @$list = @$("#entries")
     @$name = @$form.find("#new_entry_name")
 
   appendEntry: (entry) ->
@@ -45,3 +46,6 @@ class TestBackbone.Views.EntriesIndex extends Backbone.View
       errors = response.responseJSON
       for attribute, message of errors
         alert "#{attribute} #{message}"
+
+  drawWinner: ->
+    @collection.chooseWinner()

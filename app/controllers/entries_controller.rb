@@ -1,11 +1,12 @@
 class EntriesController < ApplicationController
+  before_action :set_entry, only: [:show, :update, :destroy]
 
   def index
     render json: Entry.all
   end
 
   def show
-    render json: Entry.find(params[:id])
+    render json: @entry
   end
 
   def create
@@ -19,16 +20,20 @@ class EntriesController < ApplicationController
   end
 
   def update
-    render json: Entry.update(params[:id], params[:entry])
+    render json: @entry.update(entry_params)
   end
 
   def destroy
-    render json: Entry.destroy(params[:id])
+    render json: @entry.destroy
   end
 
   private
 
+  def set_entry
+    @entry = Entry.find(params[:id])
+  end
+
   def entry_params
-    params.require(:entry).permit(:name)
+    params.require(:entry).permit(:id, :name, :winner)
   end
 end

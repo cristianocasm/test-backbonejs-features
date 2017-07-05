@@ -15,9 +15,9 @@ ActiveRecord::Schema.define(version: 20170704235901) do
 
   create_table "entries", force: :cascade do |t|
     t.string   "name"
-    t.boolean  "winner"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "winner",     default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
 end
