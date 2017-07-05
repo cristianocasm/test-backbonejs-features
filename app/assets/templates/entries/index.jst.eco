@@ -1,0 +1,12 @@
+<h1>Raffler</h1>
+
+<%# CoffeeScript is whitespace-sensitive, but your templates aren't. %>
+<%# Therefore, Eco code tags that begin an indented CoffeeScript     %>
+<%# block must be suffixed with a colon. To indicate the end of an   %>
+<%# indented block, use the special tag "end"                        %>
+
+<ul>
+  <% for entry in @entries.models: %>
+  <li><%= entry.get("name") %></li>
+  <% end %>
+</ul>
