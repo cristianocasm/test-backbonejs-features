@@ -9,7 +9,13 @@ class EntriesController < ApplicationController
   end
 
   def create
-    render json: Entry.create(params[:entry])
+    entry = Entry.create(entry_params)
+
+    if entry.persisted?
+      render json: entry, status: :ok
+    else
+      render json: entry.errors, status: :unprocessable_entity
+    end
   end
 
   def update
@@ -18,5 +24,11 @@ class EntriesController < ApplicationController
 
   def destroy
     render json: Entry.destroy(params[:id])
+  end
+
+  private
+
+  def entry_params
+    params.require(:entry).permit(:name)
   end
 end
